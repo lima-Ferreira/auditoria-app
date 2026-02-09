@@ -1,4 +1,4 @@
-const API = "https://auditoria-api-jbhr.onrender.com/api";
+const API = "https://auditoria-api-1.onrender.com/api";
 let todasAuditorias = []; // Variável global para armazenar os dados e permitir busca rápida
 
 async function carregarAuditorias() {
@@ -10,8 +10,9 @@ async function carregarAuditorias() {
     renderizarTabela(todasAuditorias);
   } catch (err) {
     console.error("Erro ao carregar auditorias", err);
-    document.getElementById("lista-auditorias").innerHTML =
-      `<tr><td colspan="6" style="text-align:center; padding:50px; color:red;">⚠️ Erro ao conectar com o servidor.</td></tr>`;
+    document.getElementById(
+      "lista-auditorias"
+    ).innerHTML = `<tr><td colspan="6" style="text-align:center; padding:50px; color:red;">⚠️ Erro ao conectar com o servidor.</td></tr>`;
   }
 }
 
@@ -32,15 +33,19 @@ function renderizarTabela(lista) {
     // Remove pontos e troca vírgula por ponto para converter em número real
     const valorNumerico =
       parseFloat(
-        a.resultadoFinal?.toString().replace(/\./g, "").replace(",", "."),
+        a.resultadoFinal?.toString().replace(/\./g, "").replace(",", ".")
       ) || 0;
     const badgeClass = valorNumerico < 0 ? "res-neg" : "res-pos";
 
     tr.innerHTML = `
-        <td style="font-weight: 700; color: #1e3a8a;">${formatarData(a.data)}</td>
+        <td style="font-weight: 700; color: #1e3a8a;">${formatarData(
+          a.data
+        )}</td>
         <td>
             <div style="font-weight: 600;">${a.loja?.fantasia || "—"}</div>
-            <div style="font-size: 10px; color: #94a3b8; text-transform: uppercase;">${a.loja?.cidade || ""}</div>
+            <div style="font-size: 10px; color: #94a3b8; text-transform: uppercase;">${
+              a.loja?.cidade || ""
+            }</div>
         </td>
         <td>${a.gerente?.nome || a.gerente || "—"}</td>
         <td>${a.auditor?.nome || a.auditor || "—"}</td>
@@ -52,11 +57,17 @@ function renderizarTabela(lista) {
         <td>
       
 <div class="action-buttons">
-    <a href="ver_auditoria.html?id=${a._id}" class="btn-icon btn-view" title="Ver">👁️</a>
-   <a href="${API.replace("/api", "")}/pdf/${a._id}" target="_blank" class="btn-icon btn-pdf" title="Gerar PDF">
+    <a href="ver_auditoria.html?id=${
+      a._id
+    }" class="btn-icon btn-view" title="Ver">👁️</a>
+   <a href="${API.replace("/api", "")}/pdf/${
+      a._id
+    }" target="_blank" class="btn-icon btn-pdf" title="Gerar PDF">
     📄
 </a>
-    <button onclick="deletarAuditoria('${a._id}')" class="btn-delete" title="Excluir">🗑️</button>
+    <button onclick="deletarAuditoria('${
+      a._id
+    }')" class="btn-delete" title="Excluir">🗑️</button>
 </div>
 
 
@@ -72,7 +83,7 @@ async function deletarAuditoria(id) {
   const SENHA_ADMIN = "lima112807";
 
   const tentativa = prompt(
-    "🔐 AÇÃO RESTRITA\nDigite a senha de administrador para EXCLUIR esta auditoria:",
+    "🔐 AÇÃO RESTRITA\nDigite a senha de administrador para EXCLUIR esta auditoria:"
   );
 
   if (tentativa === null) return; // Usuário cancelou
@@ -84,7 +95,7 @@ async function deletarAuditoria(id) {
 
   if (
     confirm(
-      "⚠️ ATENÇÃO!\nVocê está prestes a apagar permanentemente este registro do banco de dados.\n\nConfirma a exclusão?",
+      "⚠️ ATENÇÃO!\nVocê está prestes a apagar permanentemente este registro do banco de dados.\n\nConfirma a exclusão?"
     )
   ) {
     try {

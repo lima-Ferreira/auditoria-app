@@ -1,4 +1,4 @@
-const API = "https://auditoria-api-jbhr.onrender.com/api";
+const API = "https://auditoria-api-1.onrender.com/api";
 
 async function carregarListas() {
   try {

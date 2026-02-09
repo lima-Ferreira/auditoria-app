@@ -1,5 +1,5 @@
 // 1. Link oficial da API (COM /api para todos os dados)
-const API = "https://auditoria-api-jbhr.onrender.com";
+const API = "https://auditoria-api-1.onrender.com";
 
 // --- 1. INICIALIZAÇÃO INTELIGENTE ---
 document.addEventListener("DOMContentLoaded", () => {

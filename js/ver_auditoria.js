@@ -1,4 +1,4 @@
-const API = "https://auditoria-api-jbhr.onrender.com/api";
+const API = "https://auditoria-api-1.onrender.com/api";
 
 function getIdFromUrl() {
   const params = new URLSearchParams(window.location.search);
@@ -48,7 +48,7 @@ function renderizarAuditoria(a) {
   const container = document.getElementById("auditoria-detalhes");
   const resFin =
     parseFloat(
-      a.resultadoFinal?.toString().replace(".", "").replace(",", "."),
+      a.resultadoFinal?.toString().replace(".", "").replace(",", ".")
     ) || 0;
   const resColor = resFin < 0 ? "text-red" : "text-green";
 
@@ -134,7 +134,9 @@ nav { display: flex; gap: 10px; }
             <div class="data-grid">
                 <div class="data-item">
                     <span class="label">Auditor</span>
-                    <span class="value">${a.auditor?.nome || a.auditor || "—"}</span>
+                    <span class="value">${
+                      a.auditor?.nome || a.auditor || "—"
+                    }</span>
                 </div>
                 <div class="data-item">
                     <span class="label">Gerente da Loja</span>
@@ -160,20 +162,40 @@ nav { display: flex; gap: 10px; }
         <div class="info-card">
             <div class="card-title">📋 Avaliações de Infraestrutura</div>
             <div class="data-grid">
-                <div class="data-item"><span class="label">Organização Loja</span><span class="badge ${getBadgeClass(a.organizacaoLoja)}">${a.organizacaoLoja}</span></div>
-                <div class="data-item"><span class="label">Org. Depósito</span><span class="badge ${getBadgeClass(a.organizacaoDeposito)}">${a.organizacaoDeposito}</span></div>
-                <div class="data-item"><span class="label">Limpeza Geral</span><span class="badge ${getBadgeClass(a.limpeza)}">${a.limpeza}</span></div>
-                <div class="data-item"><span class="label">Fardamentos</span><span class="badge ${getBadgeClass(a.fardamentos)}">${a.fardamentos}</span></div>
-                <div class="data-item"><span class="label">Vig. Sanitária</span><span class="badge ${getBadgeClass(a.vig_sanitaria)}">${a.vig_sanitaria}</span></div>
-                <div class="data-item"><span class="label">Alvará</span><span class="badge ${getBadgeClass(a.alvara)}">${a.alvara}</span></div>
-                <div class="data-item"><span class="label">Bombeiros</span><span class="badge ${getBadgeClass(a.bombeiros)}">${a.bombeiros}</span></div>
+                <div class="data-item"><span class="label">Organização Loja</span><span class="badge ${getBadgeClass(
+                  a.organizacaoLoja
+                )}">${a.organizacaoLoja}</span></div>
+                <div class="data-item"><span class="label">Org. Depósito</span><span class="badge ${getBadgeClass(
+                  a.organizacaoDeposito
+                )}">${a.organizacaoDeposito}</span></div>
+                <div class="data-item"><span class="label">Limpeza Geral</span><span class="badge ${getBadgeClass(
+                  a.limpeza
+                )}">${a.limpeza}</span></div>
+                <div class="data-item"><span class="label">Fardamentos</span><span class="badge ${getBadgeClass(
+                  a.fardamentos
+                )}">${a.fardamentos}</span></div>
+                <div class="data-item"><span class="label">Vig. Sanitária</span><span class="badge ${getBadgeClass(
+                  a.vig_sanitaria
+                )}">${a.vig_sanitaria}</span></div>
+                <div class="data-item"><span class="label">Alvará</span><span class="badge ${getBadgeClass(
+                  a.alvara
+                )}">${a.alvara}</span></div>
+                <div class="data-item"><span class="label">Bombeiros</span><span class="badge ${getBadgeClass(
+                  a.bombeiros
+                )}">${a.bombeiros}</span></div>
             </div>
             
             <div class="card-title" style="margin-top: 30px; border: none;">💰 Conferência de Caixas</div>
             <div class="data-grid">
-                <div class="data-item"><span class="label">Caixa 01</span><span class="badge ${getBadgeClass(a.caixa_1)}">${a.caixa_1}</span></div>
-                <div class="data-item"><span class="label">Caixa 02</span><span class="badge ${getBadgeClass(a.caixa_2)}">${a.caixa_2}</span></div>
-                <div class="data-item"><span class="label">Caixa 03</span><span class="badge ${getBadgeClass(a.caixa_3)}">${a.caixa_3}</span></div>
+                <div class="data-item"><span class="label">Caixa 01</span><span class="badge ${getBadgeClass(
+                  a.caixa_1
+                )}">${a.caixa_1}</span></div>
+                <div class="data-item"><span class="label">Caixa 02</span><span class="badge ${getBadgeClass(
+                  a.caixa_2
+                )}">${a.caixa_2}</span></div>
+                <div class="data-item"><span class="label">Caixa 03</span><span class="badge ${getBadgeClass(
+                  a.caixa_3
+                )}">${a.caixa_3}</span></div>
             </div>
         </div>
 
@@ -191,7 +213,7 @@ nav { display: flex; gap: 10px; }
                         <span style="font-size: 18px;">📦</span>
                         <strong>${p}</strong>
                     </div>
-                `,
+                `
                   )
                   .join("")}
             </div>
@@ -209,16 +231,24 @@ nav { display: flex; gap: 10px; }
         <div class="info-card">
             <div class="card-title">📈 Resultado Financeiro</div>
             <div class="finance-row">
-            <div class="data-item"><span class="label">Total Faltas</span><span class="big-number text-red">R$ ${a.faltas}</span></div>
-                <div class="data-item"><span class="label">Total Sobras</span><span class="big-number text-green">R$ ${a.sobras}</span></div>
-                <div class="data-item"><span class="label">Saldo Final</span><span class="big-number ${resColor}">R$ ${a.resultadoFinal}</span></div>
+            <div class="data-item"><span class="label">Total Faltas</span><span class="big-number text-red">R$ ${
+              a.faltas
+            }</span></div>
+                <div class="data-item"><span class="label">Total Sobras</span><span class="big-number text-green">R$ ${
+                  a.sobras
+                }</span></div>
+                <div class="data-item"><span class="label">Saldo Final</span><span class="big-number ${resColor}">R$ ${
+    a.resultadoFinal
+  }</span></div>
             </div>
         </div>
         
 
         <div class="info-card">
             <div class="card-title">📝 Considerações Finais</div>
-            <div class="conclusao-text">${a.conclusao || "Nenhuma observação registrada."}</div>
+            <div class="conclusao-text">${
+              a.conclusao || "Nenhuma observação registrada."
+            }</div>
         </div>
         
         <button onclick="voltar()" style="width:100%; padding:15px; background:#1e3a8a; color:white; border:none; border-radius:8px; font-weight:bold; cursor:pointer; margin-bottom:40px;">
