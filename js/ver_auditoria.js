@@ -1,4 +1,8 @@
-const API = "https://auditoria-api-jbhr.onrender.com/api";
+// 1. Link padrão para buscar dados (COM /api)
+const API = "https://auditoria-api-jbhr.onrender.com";
+
+// 2. Na função que desenha a tabela, crie o link do PDF SEM o /api
+const linkPdf = `${API.replace("/api", "")}/pdf/${a._id}`;
 
 function getIdFromUrl() {
   const params = new URLSearchParams(window.location.search);
@@ -35,7 +39,7 @@ async function carregarAuditoria() {
   const container = document.getElementById("auditoria-detalhes");
 
   try {
-    const res = await fetch(`${API}/auditorias/${id}`);
+    const res = await fetch(`${linkPdf}/auditorias/${id}`);
     if (!res.ok) throw new Error("Auditoria não encontrada.");
     const a = await res.json();
     renderizarAuditoria(a);

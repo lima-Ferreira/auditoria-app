@@ -1,4 +1,8 @@
-const API = "https://auditoria-api-jbhr.onrender.com/api";
+// 1. Link padrão para buscar dados (COM /api)
+const API = "https://auditoria-api-jbhr.onrender.com";
+
+// 2. Na função que desenha a tabela, crie o link do PDF SEM o /api
+const linkPdf = `${API.replace("/api", "")}/pdf/${a._id}`;
 
 async function carregarListas() {
   try {
@@ -34,7 +38,7 @@ async function cadastrarLojaCompleta() {
     endereco: document.getElementById("loja-endereco").value,
     cidade: document.getElementById("loja-cidade").value,
   };
-  await fetch(`${API}/lojas`, {
+  await fetch(`${linkPdf}/lojas`, {
     method: "POST",
     headers: { "Content-Type": "application/json" },
     body: JSON.stringify(dados),
@@ -44,7 +48,7 @@ async function cadastrarLojaCompleta() {
 
 async function cadastrarGerente() {
   const nome = document.getElementById("cad-gerente").value;
-  await fetch(`${API}/gerentes`, {
+  await fetch(`${linkPdf}/gerentes`, {
     method: "POST",
     headers: { "Content-Type": "application/json" },
     body: JSON.stringify({ nome }),
@@ -54,7 +58,7 @@ async function cadastrarGerente() {
 
 async function cadastrarAuditor() {
   const nome = document.getElementById("cad-auditor").value;
-  await fetch(`${API}/auditores`, {
+  await fetch(`${linkPdf}/auditores`, {
     method: "POST",
     headers: { "Content-Type": "application/json" },
     body: JSON.stringify({ nome }),

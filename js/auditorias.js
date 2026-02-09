@@ -1,9 +1,13 @@
+// 1. Link padrão para buscar dados (COM /api)
 const API = "https://auditoria-api-jbhr.onrender.com";
+
+// 2. Na função que desenha a tabela, crie o link do PDF SEM o /api
+const linkPdf = `${API.replace("/api", "")}/pdf/${a._id}`;
 let todasAuditorias = []; // Variável global para armazenar os dados e permitir busca rápida
 
 async function carregarAuditorias() {
   try {
-    const res = await fetch(`${API}/auditorias`);
+    const res = await fetch(`${linkPdf}/auditorias`);
     todasAuditorias = await res.json();
 
     console.log("AUDITORIAS CARREGADAS:", todasAuditorias);
@@ -53,7 +57,7 @@ function renderizarTabela(lista) {
       
 <div class="action-buttons">
     <a href="ver_auditoria.html?id=${a._id}" class="btn-icon btn-view" title="Ver">👁️</a>
-   <a href="${API.replace("/api", "")}/pdf/${a._id}" target="_blank" class="btn-icon btn-pdf" title="Gerar PDF">
+   <a href="${linkPdf.replace("/api", "")}/pdf/${a._id}" target="_blank" class="btn-icon btn-pdf" title="Gerar PDF">
     📄
 </a>
     <button onclick="deletarAuditoria('${a._id}')" class="btn-delete" title="Excluir">🗑️</button>
@@ -88,7 +92,7 @@ async function deletarAuditoria(id) {
     )
   ) {
     try {
-      const res = await fetch(`${API}/auditorias/${id}`, {
+      const res = await fetch(`${linkPdf}/auditorias/${id}`, {
         method: "DELETE",
       });
 
