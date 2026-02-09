@@ -53,7 +53,9 @@ function renderizarTabela(lista) {
       
 <div class="action-buttons">
     <a href="ver_auditoria.html?id=${a._id}" class="btn-icon btn-view" title="Ver">👁️</a>
-    <a href="http://localhost:4000/pdf/${a._id}" target="_blank" class="btn-icon btn-pdf" title="PDF">📄</a>
+   <a href="${API.replace("/api", "")}/pdf/${a._id}" target="_blank" class="btn-icon btn-pdf" title="Gerar PDF">
+    📄
+</a>
     <button onclick="deletarAuditoria('${a._id}')" class="btn-delete" title="Excluir">🗑️</button>
 </div>
 
