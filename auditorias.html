@@ -1,0 +1,328 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard Auditorias | Sistema de Controle</title>
+    <link href="https://fonts.googleapis.com" rel="stylesheet">
+    <style>
+        /* BASE & LAYOUT */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #f1f5f9;
+            color: #1e293b;
+        }
+
+        /* HEADER PROFISSIONAL (Igual aos outros) */
+        .header-menu {
+            background: #1e3a8a;
+            color: white;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+        }
+
+        .header-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            height: 70px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0 20px;
+        }
+
+        .brand {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .logo-icon {
+            font-size: 24px;
+            background: rgba(255, 255, 255, 0.1);
+            padding: 8px;
+            border-radius: 10px;
+        }
+
+        .brand-text {
+            display: flex;
+            flex-direction: column;
+            line-height: 1.1;
+        }
+
+        .brand-text strong {
+            font-size: 16px;
+            letter-spacing: 1px;
+        }
+
+        .brand-text small {
+            font-size: 9px;
+            opacity: 0.7;
+            font-weight: bold;
+            text-transform: uppercase;
+        }
+
+        nav {
+            display: flex;
+            gap: 8px;
+        }
+
+        .nav-link {
+            color: rgba(255, 255, 255, 0.7);
+            text-decoration: none;
+            padding: 8px 14px;
+            border-radius: 8px;
+            font-size: 13px;
+            font-weight: 600;
+            transition: 0.2s;
+        }
+
+        .nav-link:hover {
+            background: rgba(255, 255, 255, 0.1);
+            color: white;
+        }
+
+        .nav-link.active {
+            background: #3b82f6;
+            color: white;
+        }
+
+        /* CONTAINER */
+        .main-container {
+            max-width: 1200px;
+            margin: 30px auto;
+            padding: 0 20px;
+        }
+
+        /* BARRA DE AÇÕES NO TOPO */
+        .action-bar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 25px;
+            gap: 15px;
+            flex-wrap: wrap;
+        }
+
+        .search-box {
+            position: relative;
+            flex: 1;
+            min-width: 300px;
+        }
+
+        .search-box input {
+            width: 100%;
+            padding: 12px 15px 12px 40px;
+            border-radius: 12px;
+            border: 1px solid #e2e8f0;
+            font-size: 14px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.02);
+        }
+
+        .search-box::before {
+            content: "🔍";
+            position: absolute;
+            left: 15px;
+            top: 12px;
+            opacity: 0.5;
+        }
+
+        .btn-new {
+            background: #16a34a;
+            color: white;
+            text-decoration: none;
+            padding: 12px 25px;
+            border-radius: 12px;
+            font-weight: 700;
+            font-size: 14px;
+            transition: 0.3s;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .btn-new:hover {
+            background: #15803d;
+            transform: translateY(-2px);
+        }
+
+        /* TABELA PREMIUM */
+        .table-card {
+            background: white;
+            border-radius: 16px;
+            border: 1px solid #e2e8f0;
+            overflow: hidden;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.02);
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            text-align: left;
+        }
+
+        thead {
+            background: #f8fafc;
+            border-bottom: 2px solid #f1f5f9;
+        }
+
+        th {
+            padding: 15px 20px;
+            font-size: 11px;
+            font-weight: 800;
+            color: #64748b;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        td {
+            padding: 15px 20px;
+            font-size: 14px;
+            border-bottom: 1px solid #f1f5f9;
+            color: #334155;
+        }
+
+        tr:hover {
+            background-color: #f8fafc;
+        }
+
+        /* BADGES */
+        .res-badge {
+            padding: 5px 10px;
+            border-radius: 20px;
+            font-size: 12px;
+            font-weight: 700;
+        }
+
+        .res-pos {
+            background: #dcfce7;
+            color: #166534;
+        }
+
+        .res-neg {
+            background: #fee2e2;
+            color: #991b1b;
+        }
+
+        /* BOTÕES DE AÇÃO */
+        .action-buttons {
+            display: flex;
+            gap: 8px;
+        }
+
+        .btn-icon {
+            width: 32px;
+            height: 32px;
+            border-radius: 8px;
+            border: 1px solid #e2e8f0;
+            background: white;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: 0.2s;
+            font-size: 14px;
+            text-decoration: none;
+        }
+
+        .btn-icon:hover {
+            background: #f1f5f9;
+            border-color: #cbd5e1;
+        }
+
+        .btn-view {
+            color: #1e3a8a;
+        }
+
+        .btn-pdf {
+            color: #dc2626;
+        }
+
+        .btn-delete {
+            color: #ef4444;
+            border: 1px solid #fee2e2;
+            background: #fff;
+            cursor: pointer;
+            padding: 5px;
+            border-radius: 6px;
+            transition: 0.2s;
+        }
+
+        .btn-delete:hover {
+            background: #fee2e2;
+            transform: scale(1.1);
+        }
+
+
+        @media (max-width: 768px) {
+
+            th:nth-child(3),
+            td:nth-child(3),
+            th:nth-child(4),
+            td:nth-child(4) {
+                display: none;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <header class="header-menu">
+        <div class="header-content">
+            <div class="brand">
+                <span class="logo-icon">📊</span>
+                <div class="brand-text">
+                    <strong>AUDITORIA</strong>
+                    <small>DASHBOARD DE RELATÓRIOS</small>
+                </div>
+            </div>
+            <nav>
+                <a href="auditorias.html" class="nav-link active">📁 Auditorias</a>
+                <a href="nova_auditoria.html" class="nav-link">➕ Nova</a>
+                <a href="cadastros.html" class="nav-link">⚙️ Cadastros</a>
+            </nav>
+        </div>
+    </header>
+
+    <div class="main-container">
+        <div class="action-bar">
+            <div class="search-box">
+                <input type="text" id="filtro-busca" placeholder="Buscar por loja, gerente ou auditor..."
+                    oninput="filtrarTabela()">
+            </div>
+            <a href="nova_auditoria.html" class="btn-new">➕ Nova Auditoria</a>
+        </div>
+
+        <div class="table-card">
+            <table>
+                <thead>
+                    <tr>
+                        <th>Data</th>
+                        <th>Loja</th>
+                        <th>Gerencia</th>
+                        <th>Auditor(s)</th>
+                        <th>Resultado Final</th>
+                        <th style="text-align: center;">Ações</th>
+                    </tr>
+                </thead>
+                <tbody id="lista-auditorias">
+                    <!-- Preenchido via JS -->
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <script src="./js/auditorias.js"></script>
+</body>
+
+</html>

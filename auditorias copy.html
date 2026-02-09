@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard Auditorias</title>
+    <link rel="stylesheet" href="./css/style.css">
+</head>
+
+<body>
+
+    <!-- HEADER FIXO -->
+    <header class="header-menu">
+        <div class="brand">Sistema Auditoria</div>
+        <nav>
+            <a href="auditorias.html" class="active">Auditorias</a>
+            <a href="nova_auditoria.html">Nova Auditoria</a>
+            <a href="cadastros.html">Cadastros</a>
+        </nav>
+    </header>
+
+    <div class="container">
+        <h1>Auditorias</h1>
+        <button id="btn-nova" class="btn">Nova Auditoria</button>
+
+        <table border="1" width="100%">
+            <thead>
+                <tr>
+                    <th>Data</th>
+                    <th>Loja</th>
+                    <th>Gerente</th>
+                    <th>Auditor</th>
+                    <th>Resultado</th>
+                    <th>Ações</th>
+                </tr>
+            </thead>
+            <tbody id="lista-auditorias"></tbody>
+        </table>
+
+        <script src="./js/auditorias.js"></script>
+</body>
+
+</html>

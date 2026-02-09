@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cadastros</title>
+    <link rel="stylesheet" href="./css/style.css">
+</head>
+
+<body>
+
+    <!-- HEADER FIXO -->
+    <header class="header-menu">
+        <div class="brand">Sistema Auditoria</div>
+        <nav>
+            <a href="auditorias.html">Auditorias</a>
+            <a href="nova_auditoria.html">Nova Auditoria</a>
+            <a href="cadastros.html" class="active">Cadastros</a>
+        </nav>
+    </header>
+
+    <div class="container">
+        <h1>Cadastros</h1>
+
+        <!-- ---------------- LOJAS ---------------- -->
+        <section class="card">
+            <h2>Lojas</h2>
+            <ul id="lista-lojas"></ul>
+
+            <label for="loja-razao">Razão Social</label>
+            <input type="text" id="loja-razao">
+
+            <label for="loja-fantasia">Nome Fantasia</label>
+            <input type="text" id="loja-fantasia">
+
+            <label for="loja-endereco">Endereço</label>
+            <input type="text" id="loja-endereco">
+
+            <label for="loja-cidade">Cidade</label>
+            <input type="text" id="loja-cidade">
+
+            <label for="loja-telefone">Telefone</label>
+            <input type="text" id="loja-telefone">
+
+            <label for="loja-cnpj">CNPJ</label>
+            <input type="text" id="loja-cnpj">
+
+            <button class="btn" onclick="cadastrarLojaCompleta()">Cadastrar Loja</button>
+        </section>
+
+        <!-- ---------------- GERENTES ---------------- -->
+        <section class="card">
+            <h2>Gerentes</h2>
+            <ul id="lista-gerentes"></ul>
+
+            <input type="text" id="cad-gerente" placeholder="Novo gerente">
+            <button class="btn" onclick="cadastrarGerente()">Adicionar Gerente</button>
+        </section>
+
+        <!-- ---------------- AUDITORES ---------------- -->
+        <section class="card">
+            <h2>Auditores</h2>
+            <ul id="lista-auditores"></ul>
+
+            <input type="text" id="cad-auditor" placeholder="Novo auditor">
+            <button class="btn" onclick="cadastrarAuditor()">Adicionar Auditor</button>
+        </section>
+    </div>
+
+    <script src="./js/script.js"></script>
+</body>
+
+</html>

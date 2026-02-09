@@ -1,0 +1,367 @@
+/* style.css - layout unificado */
+:root {
+    --bg: #f5f7fb;
+    --card: #ffffff;
+    --primary: #0b66ff;
+    --accent: #008f56;
+    --muted: #6b7280;
+    --header-h: 64px;
+    --max-width: 1100px;
+}
+
+* {
+    box-sizing: border-box
+}
+
+html,
+body {
+    height: 100%
+}
+
+body {
+    margin: 0;
+    font-family: Inter, system-ui, Arial, sans-serif;
+    background: var(--bg);
+    color: #111;
+    padding-top: var(--header-h);
+    /* space for fixed header */
+}
+
+/* HEADER FIXO */
+.header-menu {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: var(--header-h);
+    background: linear-gradient(90deg, #0b66ff, #0b66ffcc);
+    color: white;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 20px;
+    z-index: 1000;
+    box-shadow: 0 3px 8px rgba(11, 102, 255, 0.12);
+}
+
+.header-menu .brand {
+    font-weight: 700;
+    font-size: 18px
+}
+
+.header-menu nav a {
+    color: white;
+    text-decoration: none;
+    margin-left: 16px;
+    font-weight: 600;
+    opacity: 0.95
+}
+
+.header-menu nav a.active {
+    text-decoration: underline
+}
+
+/* CONTAINER PADRÃO */
+.container {
+    max-width: var(--max-width);
+    margin: 20px auto;
+    padding: 18px;
+}
+
+/* CARD / FORM */
+.card {
+    background: var(--card);
+    border-radius: 10px;
+    padding: 18px;
+    box-shadow: 0 6px 20px rgba(20, 20, 40, 0.04);
+}
+
+/* GRID */
+.form-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 12px;
+}
+
+.form-grid .full {
+    grid-column: 1/-1
+}
+
+/* INPUTS */
+label {
+    display: block;
+    font-weight: 600;
+    margin-top: 10px
+}
+
+input[type="text"],
+input[type="date"],
+select,
+textarea {
+    width: 100%;
+    padding: 10px;
+    border-radius: 8px;
+    border: 1px solid #e6e9ef;
+    margin-top: 6px;
+    font-size: 14px;
+}
+
+/* produto row */
+.prod-row {
+    display: flex;
+    gap: 10px;
+    align-items: center;
+    margin-top: 6px
+}
+
+.prod-row input {
+    flex: 1
+}
+
+.prod-row button {
+    padding: 10px 14px;
+    border-radius: 8px;
+    border: 0;
+    background: var(--accent);
+    color: #fff;
+    cursor: pointer
+}
+
+/* textarea de produtos (com comportamento de scroll interno) */
+#aud-produtos {
+    min-height: 80px;
+    max-height: 220px;
+    /* limite antes de scroll */
+    overflow-y: auto;
+    resize: none;
+    white-space: pre-wrap;
+}
+
+/* botões */
+.btn {
+    display: inline-block;
+    padding: 10px 14px;
+    border-radius: 8px;
+    border: 0;
+    background: var(--primary);
+    color: #fff;
+    cursor: pointer
+}
+
+.btn.ghost {
+    background: transparent;
+    color: var(--primary);
+    border: 1px solid rgba(0, 0, 0, 0.06)
+}
+
+.actions {
+    display: flex;
+    gap: 10px;
+    justify-content: flex-end;
+    margin-top: 14px
+}
+
+/* Dashboard table */
+.table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 12px
+}
+
+.table th,
+.table td {
+    padding: 10px;
+    border-bottom: 1px solid #eef0f4;
+    text-align: left
+}
+
+.table th {
+    background: #fbfdff;
+    font-weight: 700
+}
+
+/* cadastros list */
+.list-simple {
+    list-style: none;
+    padding: 0;
+    margin: 8px 0
+}
+
+.list-simple li {
+    background: #fbfbff;
+    padding: 8px;
+    border-radius: 8px;
+    margin-bottom: 6px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center
+}
+
+/* --- GRID RESPONSIVO PARA OS CADASTROS --- */
+.form-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 22px;
+    margin-top: 20px;
+}
+
+/* Ajuste dos blocos */
+.form-grid>div {
+    background: #ffffff;
+    padding: 18px;
+    border-radius: 10px;
+    box-shadow: 0 4px 14px rgba(0, 0, 0, 0.06);
+    display: flex;
+    flex-direction: column;
+}
+
+/* --- Inputs no padrão do restante do sistema --- */
+.form-grid input {
+    width: 100%;
+    padding: 10px 12px;
+    margin-top: 6px;
+    margin-bottom: 12px;
+    border: 1px solid #e6e9ef;
+    border-radius: 8px;
+    background: #fff;
+    font-size: 14px;
+    outline: none;
+    transition: 0.2s;
+}
+
+.form-grid input:focus {
+    border-color: var(--accent);
+    box-shadow: 0 0 0 2px rgba(43, 110, 246, 0.20);
+}
+
+/* Botões já estão estilizados, apenas ajusta espaçamento */
+.form-grid button.btn {
+    margin-top: 4px;
+    align-self: flex-end;
+}
+
+/* Listas abaixo dos cadastros */
+/* deixa tudo em coluna */
+.form-grid {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+/* cada bloco */
+.form-column {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+/* input + botão na mesma linha */
+.input-row {
+    display: flex;
+    flex-direction: row;
+    gap: 10px;
+    align-items: center;
+}
+
+/* aumentar input e ajustar botão */
+.input-row input {
+    flex: 1;
+    padding: 10px;
+    font-size: 1rem;
+}
+
+/* botão mantém seu estilo existente */
+
+.modal {
+    position: fixed;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.4);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 999;
+}
+
+.modal.hidden {
+    display: none;
+}
+
+.modal-content {
+    width: 420px;
+    background: #fff;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
+}
+
+.modal-content h3 {
+    margin-bottom: 15px;
+}
+
+.modal-content label {
+    display: block;
+    margin-top: 10px;
+}
+
+.modal-content input {
+    width: 100%;
+    padding: 8px;
+    border: 1px solid #ccc;
+    margin-top: 4px;
+    border-radius: 6px;
+}
+
+.modal-buttons {
+    margin-top: 20px;
+    display: flex;
+    justify-content: space-between;
+}
+
+.btn-secondary {
+    background: #aaa;
+}
+
+.btn.danger {
+    background: #c0392b;
+    color: #fff;
+}
+
+.btn.danger:hover {
+    background: #a93226;
+}
+
+
+
+
+/* ---- RESPONSIVIDADE ---- */
+
+/* Tablet */
+@media (max-width: 950px) {
+    .form-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+/* Celular */
+@media (max-width: 600px) {
+    .form-grid {
+        grid-template-columns: 1fr;
+    }
+}
+
+
+/* responsivo */
+@media (max-width:900px) {
+    .form-grid {
+        grid-template-columns: repeat(1, 1fr)
+    }
+
+    .header-menu nav a {
+        margin-left: 10px;
+        font-size: 14px
+    }
+
+    body {
+        padding-top: 72px
+    }
+}

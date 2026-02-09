@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Nova Auditoria</title>
+    <link rel="stylesheet" href="./css/style.css">
+</head>
+
+<body>
+    <header class="header-menu">
+        <div class="brand">Sistema Auditoria</div>
+        <nav>
+            <a href="auditorias.html">Auditorias</a>
+            <a href="nova_auditoria.html" class="active">Nova Auditoria</a>
+            <a href="cadastros.html">Cadastros</a>
+        </nav>
+    </header>
+
+    <div class="container">
+        <h1>Nova Auditoria</h1>
+
+        <form id="form-auditoria" class="card">
+            <div class="form-grid">
+                <div class="form-column">
+                    <label>Data</label>
+                    <input type="date" id="aud-data" required>
+
+                    <label>Acertos de Saída</label>
+                    <input type="number" id="aud-acerto-saida" min="0" step="1" />
+
+                    <label>Acertos de Entrada</label>
+                    <input type="number" id="aud-acerto-entrada" min="0" step="1" />
+
+                    <label>Loja</label>
+                    <select id="aud-loja" required></select>
+
+                    <label>Gerente</label>
+                    <select id="aud-gerente" required></select>
+
+                    <label>Auditor</label>
+                    <select id="aud-auditor" required></select>
+                </div>
+
+                <div class="form-column">
+                    <label>Organização da Loja</label>
+                    <select id="aud-org-loja">
+                        <option value="">Selecione</option>
+                        <option>Ótimo</option>
+                        <option>Bom</option>
+                        <option>Ruim</option>
+                        <option>Péssimo</option>
+                    </select>
+
+                    <label>Organização do Depósito</label>
+                    <select id="aud-org-deposito">
+                        <option value="">Selecione</option>
+                        <option>Ótimo</option>
+                        <option>Bom</option>
+                        <option>Ruim</option>
+                        <option>Péssimo</option>
+                    </select>
+
+                    <label>Limpeza da Loja</label>
+                    <select id="aud-limpeza">
+                        <option value="">Selecione</option>
+                        <option>Ótimo</option>
+                        <option>Bom</option>
+                        <option>Ruim</option>
+                        <option>Péssimo</option>
+                    </select>
+
+                    <label>Fardamentos</label>
+                    <select id="aud-fardamentos">
+                        <option value="">Selecione</option>
+                        <option>Ótimo</option>
+                        <option>Bom</option>
+                        <option>Ruim</option>
+                        <option>Péssimo</option>
+                    </select>
+
+                    <label>Valores no Caixa 1</label>
+                    <select id="aud-caixa-1">
+                        <option value="">Selecione</option>
+                        <option>Correto</option>
+                        <option>Faltando</option>
+                    </select>
+
+                    <label>Valores no Caixa 2</label>
+                    <select id="aud-caixa-2">
+                        <option value="">Selecione</option>
+                        <option>Correto</option>
+                        <option>Faltando</option>
+                    </select>
+
+                    <label>Valores no Caixa 3</label>
+                    <select id="aud-caixa-3">
+                        <option value="">Selecione</option>
+                        <option>Correto</option>
+                        <option>Faltando</option>
+                    </select>
+
+
+
+                    <label>Vigilância Sanitária</label>
+                    <select id="aud-vig-sanitaria">
+                        <option value="">Selecione</option>
+                        <option>Em dias</option>
+                        <option>Atrassado</option>
+                        <option>Já foi Solicitado</option>
+                    </select>
+
+                    <label>Alvará de Funcionamento</label>
+                    <select id="aud-alvara">
+                        <option value="">Selecione</option>
+                        <option>Em dias</option>
+                        <option>Atrassado</option>
+                        <option>Já foi Solicitado</option>
+                    </select>
+
+                    <label>Bombeiros</label>
+                    <select id="aud-bombeiros">
+                        <option value="">Selecione</option>
+                        <option>Em dias</option>
+                        <option>Atrassado</option>
+                        <option>Já foi Solicitado</option>
+                    </select>
+
+                </div>
+
+                <div class="form-column">
+                    <label>Produtos Relevantes</label>
+                    <div class="input-row">
+                        <input id="produto-input">
+                        <button type="button" id="btn-add-produto" class="btn">Adicionar</button>
+                    </div>
+                    <textarea id="aud-produtos" readonly></textarea>
+
+                    <label>Sobras</label>
+                    <input id="aud-sobras">
+
+                    <label>Faltas</label>
+                    <input id="aud-faltas">
+
+                    <label>Resultado Final</label>
+                    <input id="aud-final" readonly>
+
+                    <label>Conclusão</label>
+                    <textarea id="aud-conclusao"></textarea>
+                </div>
+            </div>
+
+            <div class="actions">
+                ✅ <button type="submit" class="btn">Salvar Auditoria</button>
+            </div>
+        </form>
+    </div>
+
+    <script src="./js/script.js"></script>
+</body>
+
+</html>

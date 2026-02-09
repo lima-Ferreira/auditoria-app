@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Configurações e Cadastros | Auditoria</title>
+    <link rel="stylesheet" href="./css/style.css">
+    <!-- Adicionando uma fonte moderna -->
+    <link href="https://fonts.googleapis.com" rel="stylesheet">
+</head>
+
+<body>
+
+    <!-- HEADER PROFISSIONAL -->
+    <header class="header-menu">
+        <div class="header-content">
+            <div class="brand">
+                <span class="logo-icon">⚙️</span>
+                <div class="brand-text">
+                    <strong>AUDITORIA</strong>
+                    <small>PAINEL DE CONTROLE</small>
+                </div>
+            </div>
+            <nav>
+                <a href="auditorias.html" class="nav-link">📁 Auditorias</a>
+                <a href="nova_auditoria.html" class="nav-link">➕ Nova Auditoria</a>
+                <a href="cadastros.html" class="nav-link active">⚙️ Cadastros</a>
+            </nav>
+        </div>
+    </header>
+
+    <div class="main-container">
+        <div class="page-header">
+            <h1>Gerenciamento de Cadastros</h1>
+            <p>Gerencie as unidades, gerentes e auditores do sistema.</p>
+        </div>
+
+        <div class="dashboard-grid">
+
+            <!-- SEÇÃO DE LOJAS (OCUPA MAIS ESPAÇO) -->
+            <section class="admin-card store-section">
+                <div class="card-header">
+                    <h2>🏢 Cadastro de Lojas</h2>
+                </div>
+
+                <!-- Lista de Lojas Já Cadastradas -->
+                <div class="list-wrapper">
+                    <ul id="lista-lojas" class="custom-list"></ul>
+                </div>
+
+                <div class="form-grid">
+                    <div class="input-group">
+                        <label>Nome Fantasia</label>
+                        <input type="text" id="loja-fantasia" placeholder="Ex: Loja Centro">
+                    </div>
+                    <div class="input-group">
+                        <label>Razão Social</label>
+                        <input type="text" id="loja-razao" placeholder="Razão Social Ltda">
+                    </div>
+                    <div class="input-group">
+                        <label>CNPJ</label>
+                        <input type="text" id="loja-cnpj" placeholder="00.000.000/0000-00">
+                    </div>
+                    <div class="input-group">
+                        <label>Telefone</label>
+                        <input type="text" id="loja-telefone" placeholder="(00) 0000-0000">
+                    </div>
+                    <div class="input-group full-width">
+                        <label>Endereço Completo</label>
+                        <input type="text" id="loja-endereco" placeholder="Rua, Número, Bairro">
+                    </div>
+                    <div class="input-group">
+                        <label>Cidade</label>
+                        <input type="text" id="loja-cidade" placeholder="Nome da Cidade">
+                    </div>
+                    <button class="btn-primary" onclick="cadastrarLojaCompleta()">
+                        Salvar Nova Loja
+                    </button>
+                </div>
+            </section>
+
+            <!-- COLUNA LATERAL PARA GERENTES E AUDITORES -->
+            <div class="side-column">
+
+                <!-- GERENTES -->
+                <section class="admin-card">
+                    <div class="card-header">
+                        <h2>👔 Gerentes</h2>
+                    </div>
+                    <div class="list-wrapper-small">
+                        <ul id="lista-gerentes" class="custom-list"></ul>
+                    </div>
+                    <div class="quick-add">
+                        <input type="text" id="cad-gerente" placeholder="Nome do gerente">
+                        <button class="btn-add" onclick="cadastrarGerente()">+</button>
+                    </div>
+                </section>
+
+                <!-- AUDITORES -->
+                <section class="admin-card">
+                    <div class="card-header">
+                        <h2>👤 Auditores</h2>
+                    </div>
+                    <div class="list-wrapper-small">
+                        <ul id="lista-auditores" class="custom-list"></ul>
+                    </div>
+                    <div class="quick-add">
+                        <input type="text" id="cad-auditor" placeholder="Nome do auditor">
+                        <button class="btn-add" onclick="cadastrarAuditor()">+</button>
+                    </div>
+                </section>
+
+            </div>
+        </div>
+    </div>
+
+    <script src="./js/cadastros.js"></script>
+
+</body>
+
+</html>
