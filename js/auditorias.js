@@ -1,4 +1,4 @@
-const API = "https://auditoria-api-jbhr.onrender.com/api";
+const API = "https://auditoria-api-jbhr.onrender.com";
 let todasAuditorias = []; // Variável global para armazenar os dados e permitir busca rápida
 
 async function carregarAuditorias() {
