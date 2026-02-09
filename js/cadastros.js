@@ -1,9 +1,7 @@
-// 1. Link padrão para buscar dados (COM /api)
+// 1. Link oficial da API (COM /api para todos os dados)
 const API = "https://auditoria-api-jbhr.onrender.com";
 
-// 2. Na função que desenha a tabela, crie o link do PDF SEM o /api
-const linkPdf = `${API.replace("/api", "")}/pdf/${a._id}`;
-
+// --- 1. CARREGAR LISTAS AO INICIAR ---
 async function carregarListas() {
   try {
     const [resLojas, resGerentes, resAuditores] = await Promise.all([
@@ -11,23 +9,30 @@ async function carregarListas() {
       fetch(`${API}/gerentes`),
       fetch(`${API}/auditores`),
     ]);
+
     const lojas = await resLojas.json();
     const gerentes = await resGerentes.json();
     const auditores = await resAuditores.json();
 
-    document.getElementById("lista-lojas").innerHTML = lojas
-      .map((l) => `<li>${l.fantasia}</li>`)
-      .join("");
-    document.getElementById("lista-gerentes").innerHTML = gerentes
-      .map((g) => `<li>${g.nome}</li>`)
-      .join("");
-    document.getElementById("lista-auditores").innerHTML = auditores
-      .map((a) => `<li>${a.nome}</li>`)
-      .join("");
+    // Preenche as listas se os elementos existirem na tela
+    const elLojas = document.getElementById("lista-lojas");
+    const elGerentes = document.getElementById("lista-gerentes");
+    const elAuditores = document.getElementById("lista-auditores");
+
+    if (elLojas)
+      elLojas.innerHTML = lojas.map((l) => `<li>${l.fantasia}</li>`).join("");
+    if (elGerentes)
+      elGerentes.innerHTML = gerentes.map((g) => `<li>${g.nome}</li>`).join("");
+    if (elAuditores)
+      elAuditores.innerHTML = auditores
+        .map((a) => `<li>${a.nome}</li>`)
+        .join("");
   } catch (err) {
-    console.error(err);
+    console.error("Erro ao carregar listas:", err);
   }
 }
+
+// --- 2. FUNÇÕES DE CADASTRO ---
 
 async function cadastrarLojaCompleta() {
   const dados = {
@@ -38,7 +43,9 @@ async function cadastrarLojaCompleta() {
     endereco: document.getElementById("loja-endereco").value,
     cidade: document.getElementById("loja-cidade").value,
   };
-  await fetch(`${linkPdf}/lojas`, {
+
+  // USAMOS A ROTA /api/lojas (Correto)
+  await fetch(`${API}/lojas`, {
     method: "POST",
     headers: { "Content-Type": "application/json" },
     body: JSON.stringify(dados),
@@ -48,7 +55,9 @@ async function cadastrarLojaCompleta() {
 
 async function cadastrarGerente() {
   const nome = document.getElementById("cad-gerente").value;
-  await fetch(`${linkPdf}/gerentes`, {
+  if (!nome) return alert("Digite o nome!");
+
+  await fetch(`${API}/gerentes`, {
     method: "POST",
     headers: { "Content-Type": "application/json" },
     body: JSON.stringify({ nome }),
@@ -58,7 +67,9 @@ async function cadastrarGerente() {
 
 async function cadastrarAuditor() {
   const nome = document.getElementById("cad-auditor").value;
-  await fetch(`${linkPdf}/auditores`, {
+  if (!nome) return alert("Digite o nome!");
+
+  await fetch(`${API}/auditores`, {
     method: "POST",
     headers: { "Content-Type": "application/json" },
     body: JSON.stringify({ nome }),

@@ -1,81 +1,97 @@
-// 1. Link padrão para buscar dados (COM /api)
+// 1. Link oficial da API (COM /api para todos os dados)
 const API = "https://auditoria-api-jbhr.onrender.com";
 
-// 2. Na função que desenha a tabela, crie o link do PDF SEM o /api
-const linkPdf = `${API.replace("/api", "")}/pdf/${a._id}`;
-
-// --- 1. INICIALIZAÇÃO ---
+// --- 1. INICIALIZAÇÃO INTELIGENTE ---
 document.addEventListener("DOMContentLoaded", () => {
-  // Verifica se está na página de CADASTROS
+  // Se estiver na página de CADASTROS
   if (document.getElementById("lista-lojas")) {
-    carregarListasCadastros();
+    carregarListas();
   }
 
-  // Verifica se está na página de NOVA AUDITORIA
+  // Se estiver na página de NOVA AUDITORIA
   if (document.getElementById("form-auditoria")) {
     carregarSelectsAuditoria();
     configurarLogicaProdutos();
-    configurarCalculoFinanceiro(); // Agora ela existe abaixo
+    configurarCalculoFinanceiro();
   }
 });
 
-// --- 2. UTILITÁRIOS (Formatação) ---
-function formatarMoeda(valor) {
-  const num =
-    typeof valor === "string"
-      ? parseFloat(valor.replace(/\./g, "").replace(",", "."))
-      : valor;
-  return (num || 0).toLocaleString("pt-BR", {
-    minimumFractionDigits: 2,
-    maximumFractionDigits: 2,
-  });
+// --- 2. FUNÇÕES DE CADASTRO (Página de Cadastros) ---
+
+async function carregarListas() {
+  try {
+    const [resLojas, resGerentes, resAuditores] = await Promise.all([
+      fetch(`${API}/lojas`),
+      fetch(`${API}/gerentes`),
+      fetch(`${API}/auditores`),
+    ]);
+    const lojas = await resLojas.json();
+    const gerentes = await resGerentes.json();
+    const auditores = await resAuditores.json();
+
+    if (document.getElementById("lista-lojas"))
+      document.getElementById("lista-lojas").innerHTML = lojas
+        .map((l) => `<li>${l.fantasia}</li>`)
+        .join("");
+    if (document.getElementById("lista-gerentes"))
+      document.getElementById("lista-gerentes").innerHTML = gerentes
+        .map((g) => `<li>${g.nome}</li>`)
+        .join("");
+    if (document.getElementById("lista-auditores"))
+      document.getElementById("lista-auditores").innerHTML = auditores
+        .map((a) => `<li>${a.nome}</li>`)
+        .join("");
+  } catch (err) {
+    console.error("Erro ao carregar listas:", err);
+  }
 }
 
-// --- 3. LÓGICA DE NOVA AUDITORIA ---
-function configurarCalculoFinanceiro() {
-  const inputSobras = document.getElementById("aud-sobras");
-  const inputFaltas = document.getElementById("aud-faltas");
-  const inputFinal = document.getElementById("aud-final");
-
-  const processarECalcular = () => {
-    // 1. Captura os valores e limpa para o JS entender
-    let sVal = inputSobras.value.replace(/\./g, "").replace(",", ".") || "0";
-    let fVal = inputFaltas.value.replace(/\./g, "").replace(",", ".") || "0";
-
-    const s = parseFloat(sVal);
-    const f = parseFloat(fVal);
-
-    // 2. Formata os inputs de entrada para ficarem bonitos (R$ 1.250,00)
-    inputSobras.value = s.toLocaleString("pt-BR", { minimumFractionDigits: 2 });
-    inputFaltas.value = f.toLocaleString("pt-BR", { minimumFractionDigits: 2 });
-
-    // 3. Lógica do Resultado:
-    // Se Falta é maior que Sobra, mostramos o valor positivo (Dívida/Prejuízo)
-    // Se Sobra é maior que Falta, mostramos com o sinal de "-"
-    const resultado = f - s;
-
-    // 4. Exibe o resultado formatado
-    inputFinal.value = resultado.toLocaleString("pt-BR", {
-      minimumFractionDigits: 2,
-      maximumFractionDigits: 2,
-    });
-
-    // Estilo visual rápido: Vermelho se for prejuízo (Falta > Sobra)
-    inputFinal.style.color = f > s ? "#dc2626" : "#16a34a";
+async function cadastrarLojaCompleta() {
+  const dados = {
+    fantasia: document.getElementById("loja-fantasia").value,
+    razao: document.getElementById("loja-razao").value,
+    cnpj: document.getElementById("loja-cnpj").value,
+    telefone: document.getElementById("loja-telefone").value,
+    endereco: document.getElementById("loja-endereco").value,
+    cidade: document.getElementById("loja-cidade").value,
   };
-
-  // 'blur' dispara quando o usuário clica fora do campo (terminou de digitar)
-  inputSobras.addEventListener("blur", processarECalcular);
-  inputFaltas.addEventListener("blur", processarECalcular);
+  // USAMOS A ROTA /api/lojas
+  await fetch(`${API}/lojas`, {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify(dados),
+  });
+  location.reload();
 }
 
-// Preenche os selects buscando no MongoDB
+async function cadastrarGerente() {
+  const nome = document.getElementById("cad-gerente").value;
+  await fetch(`${API}/gerentes`, {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({ nome }),
+  });
+  location.reload();
+}
+
+async function cadastrarAuditor() {
+  const nome = document.getElementById("cad-auditor").value;
+  await fetch(`${API}/auditores`, {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({ nome }),
+  });
+  location.reload();
+}
+
+// --- 3. LÓGICA DE NOVA AUDITORIA (Página de Nova Auditoria) ---
+
 async function carregarSelectsAuditoria() {
   try {
     const [resLojas, resGerentes, resAuditores] = await Promise.all([
-      fetch(`${linkPdf}/lojas`),
-      fetch(`${linkPdf}/gerentes`),
-      fetch(`${linkPdf}/auditores`),
+      fetch(`${API}/lojas`),
+      fetch(`${API}/gerentes`),
+      fetch(`${API}/auditores`),
     ]);
     const lojas = await resLojas.json();
     const gerentes = await resGerentes.json();
@@ -107,7 +123,7 @@ function configurarLogicaProdutos() {
   const areaLista = document.getElementById("aud-produtos");
   let listaProds = [];
 
-  btnAdd.addEventListener("click", () => {
+  btnAdd?.addEventListener("click", () => {
     if (inputProd.value.trim()) {
       listaProds.push(inputProd.value.trim());
       areaLista.value = listaProds.map((p, i) => `${i + 1}. ${p}`).join("\n");
@@ -116,12 +132,31 @@ function configurarLogicaProdutos() {
   });
 }
 
-// SALVAR AUDITORIA
+function configurarCalculoFinanceiro() {
+  const inputSobras = document.getElementById("aud-sobras");
+  const inputFaltas = document.getElementById("aud-faltas");
+  const inputFinal = document.getElementById("aud-final");
+
+  const calcular = () => {
+    const s =
+      parseFloat(inputSobras.value.replace(/\./g, "").replace(",", ".")) || 0;
+    const f =
+      parseFloat(inputFaltas.value.replace(/\./g, "").replace(",", ".")) || 0;
+    const resultado = f - s; // Lógica que você pediu: Falta > Sobra = Positivo
+    inputFinal.value = resultado.toLocaleString("pt-BR", {
+      minimumFractionDigits: 2,
+    });
+  };
+
+  inputSobras?.addEventListener("blur", calcular);
+  inputFaltas?.addEventListener("blur", calcular);
+}
+
+// ENVIAR FORMULÁRIO DE AUDITORIA
 document
   .getElementById("form-auditoria")
   ?.addEventListener("submit", async (e) => {
     e.preventDefault();
-
     const auditoria = {
       data: document.getElementById("aud-data").value,
       acertoSaida: document.getElementById("aud-acerto-saida").value,
@@ -150,79 +185,16 @@ document
     };
 
     try {
-      const res = await fetch(`${linkPdf}/auditorias`, {
+      const res = await fetch(`${API}/auditorias`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(auditoria),
       });
       if (res.ok) {
-        alert("✅ Auditoria salva!");
-        window.location.href = "auditorias.html";
+        alert("✅ Auditoria salva com sucesso!");
+        window.location.href = "index.html";
       }
     } catch (err) {
-      console.error(err);
+      alert("Erro ao salvar.");
     }
   });
-
-// --- 4. LÓGICA DE CADASTROS (Igual antes, mas sem erros) ---
-async function carregarListasCadastros() {
-  try {
-    const [resLojas, resGerentes, resAuditores] = await Promise.all([
-      fetch(`${linkPdf}/lojas`),
-      fetch(`${linkPdf}/gerentes`),
-      fetch(`${linkPdf}/auditores`),
-    ]);
-    const lojas = await resLojas.json();
-    const gerentes = await resGerentes.json();
-    const auditores = await resAuditores.json();
-
-    document.getElementById("lista-lojas").innerHTML = lojas
-      .map((l) => `<li>${l.fantasia}</li>`)
-      .join("");
-    document.getElementById("lista-gerentes").innerHTML = gerentes
-      .map((g) => `<li>${g.nome}</li>`)
-      .join("");
-    document.getElementById("lista-auditores").innerHTML = auditores
-      .map((a) => `<li>${a.nome}</li>`)
-      .join("");
-  } catch (err) {
-    console.error(err);
-  }
-}
-
-async function cadastrarLojaCompleta() {
-  const dados = {
-    fantasia: document.getElementById("loja-fantasia").value,
-    razao: document.getElementById("loja-razao").value,
-    cnpj: document.getElementById("loja-cnpj").value,
-    telefone: document.getElementById("loja-telefone").value,
-    endereco: document.getElementById("loja-endereco").value,
-    cidade: document.getElementById("loja-cidade").value,
-  };
-  await fetch(`${linkPdf}/lojas`, {
-    method: "POST",
-    headers: { "Content-Type": "application/json" },
-    body: JSON.stringify(dados),
-  });
-  location.reload();
-}
-
-async function cadastrarGerente() {
-  const nome = document.getElementById("cad-gerente").value;
-  await fetch(`${linkPdf}/gerentes`, {
-    method: "POST",
-    headers: { "Content-Type": "application/json" },
-    body: JSON.stringify({ nome }),
-  });
-  location.reload();
-}
-
-async function cadastrarAuditor() {
-  const nome = document.getElementById("cad-auditor").value;
-  await fetch(`${linkPdf}/auditores`, {
-    method: "POST",
-    headers: { "Content-Type": "application/json" },
-    body: JSON.stringify({ nome }),
-  });
-  location.reload();
-}
